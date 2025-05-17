@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Հարսանեկան հրավիրատոմս</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      background: #fdf6f0;
+      color: #4b3a2f;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .invitation {
+      background: white;
+      border-radius: 20px;
+      max-width: 450px;
+      padding: 40px 30px;
+      box-shadow: 0 8px 20px rgba(75, 58, 47, 0.2);
+      text-align: center;
+      position: relative;
+    }
+
+    .invitation img {
+      width: 100%;
+      border-radius: 20px 20px 0 0;
+      object-fit: cover;
+      max-height: 250px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      margin: 25px 0 5px;
+      color: #a66c4d;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin: 8px 0;
+      line-height: 1.5;
+    }
+
+    .details {
+      margin-top: 20px;
+      border-top: 1px solid #e2d5ca;
+      padding-top: 20px;
+    }
+
+    .details p {
+      font-weight: 600;
+      color: #6e544e;
+    }
+
+    .countdown {
+      margin: 25px 0;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #b35733;
+    }
+
+    .buttons button {
+      background-color: #a66c4d;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      margin: 10px 15px;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .buttons button:hover {
+      background-color: #854c2a;
+    }
+
+    .response-message {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #4b3a2f;
+    }
+  </style>
+</head>
+<body>
+  <div class="invitation">
+    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="Հարսանեկան թեմա" />
+    <h1>Հարսանեկան հրավիրատոմս</h1>
+    <p>Հարգելի՛ <strong>Մելինե Ռոբերտ</strong>,</p>
+    <p>Հանդիպենք հուլիսի 30-ին՝</p>
+    <div class="details">
+      <p>Եկեղեցի՝ 15:00, Սուրբ Հռիփսիմե</p>
+      <p>Ռեստորան՝ 18:00, Ֆլորենս</p>
+    </div>
+
+    <div class="countdown" id="countdown">Հաշվում ենք մնացած ժամանակը...</div>
+
+    <div class="buttons">
+      <button id="comingBtn">Գալու եմ</button>
+      <button id="notComingBtn">Չեմ գալու</button>
+    </div>
+
+    <div class="response-message" id="response"></div>
+  </div>
+
+  <script>
+    // Հարսանեկան օրը
+    const weddingDate = new Date('2025-07-30T15:00:00');
+    const countdownEl = document.getElementById('countdown');
+    const responseEl = document.getElementById('response');
+    const comingBtn = document.getElementById('comingBtn');
+    const notComingBtn = document.getElementById('notComingBtn');
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = weddingDate - now;
+
+      if (diff <= 0) {
+        countdownEl.textContent = 'Շնորհակալություն, որ միացաք մեզ մեր հատուկ օրը։';
+        comingBtn.disabled = true;
+        notComingBtn.disabled = true;
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      countdownEl.textContent = `Մնացել է՝ ${days} օր ${hours} ժամ ${minutes} րոպե ${seconds} վայրկյան`;
+    }
+
+    comingBtn.addEventListener('click', () => {
+      responseEl.textContent = 'Շնորհակալություն, սպասում ենք քեզ սիրով 💕';
+      comingBtn.disabled = true;
+      notComingBtn.disabled = true;
+    });
+
+    notComingBtn.addEventListener('click', () => {
+      responseEl.textContent = 'Ներեցեք, որ չեք կարող գալ։ Շնորհակալություն տեղեկացնելու համար։';
+      comingBtn.disabled = true;
+      notComingBtn.disabled = true;
+    });
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+</body>
+</html>
